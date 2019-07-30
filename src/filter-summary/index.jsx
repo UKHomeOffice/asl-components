@@ -1,5 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
+import omit from 'lodash/omit';
+import capitalize from 'lodash/capitalize';
+import qs from 'qs';
 
 const FilterSummary = ({
   total,
@@ -8,11 +12,16 @@ const FilterSummary = ({
   allShowingLabel = total === 1 ? `${total} result` : `${total} results`,
   filters
 }) => {
-  const searchString = filters.active['*'];
+  const searchString = filters.active['*'] && filters.active['*'][0];
+  const activeFilters = omit(filters.active, '*');
 
-  const removeFilter = e => {
-    e.preventDefault();
-    window.location.href = `//${window.location.host + window.location.pathname}`;
+  const removeFilter = filterKey => {
+    return e => {
+      e.preventDefault();
+      const urlParams = qs.parse(window.location.search, { ignoreQueryPrefix: true });
+      delete urlParams['filters'][filterKey];
+      window.location.href = `//${window.location.host + window.location.pathname + qs.stringify(urlParams, { addQueryPrefix: true })}`;
+    };
   };
 
   return (
@@ -21,12 +30,27 @@ const FilterSummary = ({
         { filtered !== total ? filteredLabel : allShowingLabel }
       </h3>
       {
-        searchString &&
+        !isEmpty(filters.active) &&
           <div className="applied-filters">
-            <h3>Containing</h3>
-            <button className="govuk-button button-secondary search-filter" onClick={removeFilter}>
-              <span>{searchString}</span>
-            </button>
+            {
+              searchString &&
+                <div>
+                  <h3>Containing</h3>
+                  <button className="govuk-button button-secondary search-filter" onClick={removeFilter('*')}>
+                    <span>{searchString}</span>
+                  </button>
+                </div>
+            }
+            {
+              Object.keys(activeFilters).map(key => !isEmpty(activeFilters[key]) && (
+                <div key={key}>
+                  <h3>{capitalize(key)}</h3>
+                  <button className="govuk-button button-secondary search-filter" onClick={removeFilter(key)}>
+                    <span>{activeFilters[key][0]}</span>
+                  </button>
+                </div>
+              ))
+            }
           </div>
       }
     </Fragment>
