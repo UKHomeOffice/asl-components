@@ -66,8 +66,8 @@ const mapStateToProps = ({
     filters
   }
 }) => ({
-  total: parseInt(total),
-  filtered: parseInt(filtered),
+  total: parseInt(total, 10),
+  filtered: parseInt(filtered, 10),
   filters
 });
 
