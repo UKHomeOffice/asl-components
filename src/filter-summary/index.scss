@@ -1,0 +1,18 @@
+.applied-filters {
+  h3 {
+    display: inline-block;
+    margin-right: 1em;
+    line-height: 2.4em;
+  }
+
+  .search-filter {
+    font-size: 22px;
+
+    span:before {
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 0.8em;
+      content: '✕';
+    }
+  }
+}
