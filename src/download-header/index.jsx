@@ -18,6 +18,8 @@ const DownloadHeader = ({ model, licenceType, isGranted, basename, showWord = tr
       break;
   }
 
+  basename = basename.replace(/\/edit/, '');
+
   // title could span multiple lines, adjust download position accordingly
   useEffect(() => {
     // subtract padding, and border
