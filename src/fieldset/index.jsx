@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import map from 'lodash/map';
+import omit from 'lodash/omit';
 import without from 'lodash/without';
 import castArray from 'lodash/castArray';
 import classnames from 'classnames';
@@ -13,7 +14,7 @@ const fields = {
   inputPassword: props => <Input type="password" { ...props } />,
   declaration: props => <ApplicationConfirm { ...props } />,
   inputDate: props => <DateInput { ...props } onChange={value => props.onChange({ target: { value } })} />,
-  textarea: props => <TextArea { ...props } autoExpand={true} />,
+  textarea: props => <TextArea { ...omit(props, ['checkChanged', 'showDiff']) } autoExpand={true} />,
   radioGroup: props => <RadioGroup { ...props } />,
   checkboxGroup: props => <CheckboxGroup { ...props } />,
   select: props => <Select { ...props } />,
