@@ -3,6 +3,7 @@ import { EditableField, Snippet } from '../';
 
 export default function RestrictionsField(props) {
   return <EditableField
+    {...props}
     label={<Snippet>fields.restrictions.label</Snippet>}
     currentLabel={<Snippet>fields.restrictions.currentLabel</Snippet>}
     proposedLabel={<Snippet>fields.restrictions.proposedLabel</Snippet>}
@@ -10,6 +11,5 @@ export default function RestrictionsField(props) {
     format={val => val || 'None'}
     original={props.model && props.model.restrictions}
     proposed={props.value}
-    {...props}
   />;
 }
