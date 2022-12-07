@@ -1,6 +1,6 @@
 {
   "name": "@asl/components",
-  "version": "10.15.5",
+  "version": "10.16.3",
   "description": "React components for ASL layouts and elements",
   "main": "src/index.jsx",
   "styles": "styles/index.scss",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@asl/constants": "^1.2.1",
     "@asl/dictionary": "^1.1.5",
-    "@ukhomeoffice/react-components": "^0.10.5",
+    "@ukhomeoffice/react-components": "^0.10.7",
     "accessible-autocomplete": "^2.0.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "classnames": "^2.2.6",
@@ -39,6 +39,7 @@
     "react-markdown": "^6.0.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
+    "shasum": "^1.0.2",
     "url": "^0.11.0",
     "uuid": "^8.3.2"
   },

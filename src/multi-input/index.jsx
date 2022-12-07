@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import shasum from 'shasum';
 import classnames from 'classnames';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Button, Input, Warning } from '@ukhomeoffice/react-components';
@@ -21,11 +22,28 @@ function Item({ item, onRemove, showRemove, onChange, name, isDisabled, disabled
   );
 }
 
+// generate reproducible seed for consistent uuids between server & client
+const getReproducibleUuid = str => {
+  const unsignedInts = shasum(str).match(/[\dA-F]{2}/gi).map(s => parseInt(s, 16));
+  return uuid({ random: new Uint8Array(unsignedInts) });
+};
+
 export default function MultiInput({ value, onChange, onFieldChange, name, label, hint, error, disabled = [], disabledWarning, objectItems = false }) {
   const initialValue = (value ? castArray(value) : [])
     .filter(Boolean)
-    .map(v => typeof v !== 'object' ? ({ id: uuid(), value: v }) : v);
+    .map((value, idx) => {
+      return typeof value === 'object'
+        ? value
+        : { id: getReproducibleUuid(`${idx}${value}`), value };
+    });
+
   const [items, setItems] = useState(initialValue);
+
+  useEffect(() => {
+    if (!items.length) {
+      setItems([{ id: uuid(), value: '' }]);
+    }
+  }, []);
 
   useEffect(() => {
     const rtn = getItems();
@@ -41,10 +59,6 @@ export default function MultiInput({ value, onChange, onFieldChange, name, label
     return objectItems
       ? items.filter(i => i.value)
       : items.map(obj => obj.value).filter(Boolean);
-  }
-
-  if (!items.length) {
-    setItems([{ id: uuid(), value: '' }]);
   }
 
   function removeItem(id) {
@@ -87,7 +101,7 @@ export default function MultiInput({ value, onChange, onFieldChange, name, label
             <Item
               item={item}
               key={item.id}
-              name={!objectItems && name}
+              name={`${name}-${item.id}`}
               onRemove={removeItem(item.id)}
               onChange={updateItem(item.id)}
               isDisabled={disabled.includes(item.id)}
