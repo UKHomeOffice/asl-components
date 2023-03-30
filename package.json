@@ -36,7 +36,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "mustache": "^3.0.1",
-    "qs": "^6.6.1",
+    "qs": "^6.11.1",
     "react": "^16.9.0",
     "react-markdown": "^6.0.2",
     "react-redux": "^7.1.0",
