@@ -35,7 +35,7 @@
     "diff": "^4.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "mustache": "^3.0.1",
+    "mustache": "^4.2.0",
     "qs": "^6.6.1",
     "react": "^16.9.0",
     "react-markdown": "^6.0.2",
