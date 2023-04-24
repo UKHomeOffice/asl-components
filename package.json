@@ -1,6 +1,6 @@
 {
-  "name": "@ukhomeoffice/components",
-  "version": "11.0.0",
+  "name": "@asl/components",
+  "version": "11.1.0",
   "description": "React components for ASL layouts and elements",
   "main": "src/index.jsx",
   "styles": "styles/index.scss",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ukhomeoffice/asl-components#readme",
   "publishConfig": {
-    "@ukhomeoffice:registry": "https://npm.pkg.github.com"
+    "registry": "https://artifactory.digital.homeoffice.gov.uk/artifactory/api/npm/npm-virtual/"
   },
   "dependencies": {
     "@ukhomeoffice/asl-constants": "^2.0.0",
