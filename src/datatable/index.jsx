@@ -8,6 +8,7 @@ import pickBy from 'lodash/pickBy';
 import { getValue } from '../utils';
 import DatatableHeader from './header';
 import { Pagination } from '../';
+import { LoadingSpinner } from '../loading-spinner';
 
 export function Row({ row, schema, Expandable, Actions, expands, alwaysExpanded }) {
     const rowExpands = expands(row);
@@ -108,6 +109,9 @@ export function Datatable({
                 <tr id="filter-header"></tr>
             </thead>
             <tbody>
+                {
+                    isFetching && <div className="loading-overlay"><LoadingSpinner small /></div>
+                }
                 {
                     data.length === 0 && noDataWarning && <tr><td colSpan={colSpan}>{noDataWarning}</td></tr>
                 }
