@@ -4,13 +4,27 @@ import { connect } from 'react-redux';
 import Markdown from '../markdown';
 import { render } from 'mustache';
 
+function getTemplate(content, primary, fallback) {
+    const keysToTry = [primary, ...(Array.isArray(fallback) ? fallback : [fallback])];
+
+    for (let key of keysToTry) {
+        const template = get(content, key);
+        if (template != undefined) {
+            return template;
+        }
+    }
+
+    return undefined;
+}
+
 export const Snippet = ({ content, children, optional, fallback, ...props }) => {
-    const str = get(content, children, get(content, fallback));
+    const str = getTemplate(content, children, fallback);
     if (str === undefined && optional) {
         return null;
+
     }
     if (str === undefined) {
-        throw new Error(`Failed to lookup content snippet: ${children}`);
+        return `Failed to lookup content snippet: ${children}`;
     }
     if (typeof str !== 'string') {
         throw new Error(`Invalid content snippet for key ${children}: ${JSON.stringify(str)}`);
