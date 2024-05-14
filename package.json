@@ -25,13 +25,12 @@
     "@ukhomeoffice:registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@ukhomeoffice/asl-constants": "^2.1.4",
+    "@ukhomeoffice/asl-constants": "^2.1.5",
     "@ukhomeoffice/asl-dictionary": "^2.1.0",
     "@ukhomeoffice/react-components": "^1.0.0",
     "accessible-autocomplete": "^2.0.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "classnames": "^2.2.6",
-    "date-fns": "^1.29.0",
+    "date-fns": "^3.6.0",
     "diff": "^4.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
@@ -47,9 +46,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^8.23.1",
