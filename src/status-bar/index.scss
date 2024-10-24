@@ -1,12 +1,5 @@
 .wrapper-header .content {
-  @include govuk-grid-row;
-
-  > nav {
-    @include govuk-grid-column(two-thirds)
-  }
-
-  > .status-bar {
-    @include govuk-grid-column(one-third);
+  .status-bar {
     padding-left: 0;
     text-align: right;
 

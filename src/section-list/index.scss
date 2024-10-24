@@ -5,10 +5,10 @@
 
   .section-item {
     padding: $govuk-gutter-half 0;
-    border-top: 1px solid govuk-colour('grey-1');
+    border-top: 1px solid govuk-colour('dark-grey');
 
     &:last-child {
-      border-bottom: 1px solid govuk-colour('grey-1');
+      border-bottom: 1px solid govuk-colour('dark-grey');
     }
 
     h3 {

@@ -2,7 +2,7 @@
   overflow: auto;
   margin-bottom: $govuk-gutter;
   padding: 8px $govuk-gutter-half;
-  background-color: govuk-colour('grey-1');
+  background-color: govuk-colour('dark-grey');
   color: $white;
   font-size: 16px;
 
@@ -13,7 +13,7 @@
   }
 
   &.revoked, &.red, &.expired, &.suspended {
-    background-color: govuk-colour('red');
+    background-color: $govuk-error-colour-asl;
   }
 
   &.open header .status:before {
