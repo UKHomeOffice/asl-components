@@ -20,7 +20,9 @@ function ModelProperty({ property, model, formatters, specification, formatNullV
 
     return (
         <Fragment>
-            <dt><Snippet {...snippetProps}>{`fields.${property}.label`}</Snippet></dt>
+            {property === 'applicantTrainingUseAtWork' || property === 'applicantLearningUse'?
+                <dt>Higher education or training outcomes</dt> :
+                <dt><Snippet {...snippetProps}>{`fields.${property}.label`}</Snippet></dt>}
             <dd>
                 <Value
                     value={model[property]}
