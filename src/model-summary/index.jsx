@@ -6,9 +6,6 @@ import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Snippet } from '../';
 
-const APPLICANT_TRAINING_USE_AT_WORK = 'applicantTrainingUseAtWork';
-const APPLICANT_LEARNING_USE = 'applicantLearningUse';
-
 function Value({ value, format, model, nullValue, accessor, formatNullValue }) {
     value = accessor ? get(model, accessor) : value;
     if (!value && !formatNullValue) {
@@ -23,9 +20,11 @@ function ModelProperty({ property, model, formatters, specification, formatNullV
 
     return (
         <Fragment>
-            {property === APPLICANT_TRAINING_USE_AT_WORK || property === APPLICANT_LEARNING_USE ?
-                <dt><Snippet {...snippetProps}>{`fields.${property}.checkAnswerLabel`}</Snippet></dt> :
-                <dt><Snippet {...snippetProps}>{`fields.${property}.label`}</Snippet></dt>}
+            <dt>
+                <Snippet {...snippetProps} fallback={`fields.${property}.label`}>
+                    {`fields.${property}.checkAnswerLabel`}
+                </Snippet>
+            </dt>
             <dd>
                 <Value
                     value={model[property]}
