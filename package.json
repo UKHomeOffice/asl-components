@@ -28,7 +28,7 @@
     "@ukhomeoffice/asl-constants": "^2.1.7",
     "@ukhomeoffice/asl-dictionary": "^2.1.0",
     "@ukhomeoffice/react-components": "^1.0.0",
-    "accessible-autocomplete": "^2.0.3",
+    "accessible-autocomplete": "^3.0.1",
     "classnames": "^2.2.6",
     "date-fns": "^3.6.0",
     "diff": "^4.0.1",
