@@ -26,7 +26,8 @@ import {
     MultiInput,
     DurationField,
     SelectMany,
-    Inset
+    Inset,
+    CharacterCount
 } from '../';
 
 function getLabel(opt, name, type = 'label') {
@@ -70,6 +71,7 @@ const fields = {
     declaration: props => <ApplicationConfirm { ...props } />,
     inputDate: props => <DateInput { ...props } onChange={value => props.onChange({ target: { value } })} />,
     textarea: props => <TextArea { ...omit(props, ['meta']) } autoExpand={true} />,
+    textAreaWithWordCount: props => <CharacterCount { ...omit(props, ['meta'])} limit = {3} />,
     radioGroup: props => {
         if (!props.options) {
             throw new Error(`radioGroup '${props.name}' has undefined options`);
