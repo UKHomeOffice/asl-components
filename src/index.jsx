@@ -7,7 +7,6 @@ export { default as ApplicationConfirm } from './application-confirm';
 export { default as ApplyChanges } from './apply-changes';
 export { default as BackToTop } from './back-to-top';
 export { default as Breadcrumbs } from './breadcrumbs';
-export { default as CharacterCount } from './character-count';
 export { default as Completable } from './completable';
 export { default as Controls } from './controls';
 export { default as ControlBar } from './control-bar';
@@ -70,5 +69,6 @@ export { default as Tasklist } from './tasklist';
 export { default as TrainingSummary } from './training-summary';
 export { default as WidthContainer } from './width-container';
 export { default as Wrapper } from './wrapper';
+export { default as WordCount } from './word-count';
 
 export * from './layouts';

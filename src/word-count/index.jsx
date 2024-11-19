@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { TextArea } from '@ukhomeoffice/react-components';
 import classNames from 'classnames';
 
-export default function CharacterCount(props) {
+export default function WordCount(props) {
 
     const { value, maxWordCount, error, values } = props;
     const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
