@@ -7,19 +7,19 @@ describe('<WordCount />', () => {
 
     const values = { id: 'applicantTrainingUseAtWork' };
 
-    test('displays correct word count for entered text', () => {
+    test('displays how many words remaining', () => {
         const wrapper = shallow(<WordCount value="Hello world" maxWordCount={10} values={values} />);
 
         expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 8 words remaining');
     });
 
-    test('displays correct max word count in hint when textarea is empty', () => {
+    test('displays maximum word count when textarea is empty', () => {
         const wrapper = shallow(<WordCount value="" maxWordCount={10} values={values}/>);
 
         expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 10 words remaining');
     });
 
-    test('displays how many words above the word limit is entered', () => {
+    test('displays how many words above the maximum word limit are entered', () => {
         const wrapper = shallow(<WordCount value="Hello world" maxWordCount={1} values={values}/>);
 
         expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 1 word too many');
