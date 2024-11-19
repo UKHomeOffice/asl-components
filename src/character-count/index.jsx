@@ -4,18 +4,19 @@ import classNames from 'classnames';
 
 export default function CharacterCount(props) {
 
+    const { value, maxWordCount, error } = props;
     const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
 
     const [{ content, wordCount }, setContent] = useState({
-        content: props.value,
-        wordCount: getWordCount(props.value) ?? 0,
+        content: value,
+        wordCount: getWordCount(value) ?? 0,
     });
 
     const handleChange = useCallback(text => {
 
         const wordCount = getWordCount(text);
 
-        if (wordCount > props.limit) {
+        if (wordCount > maxWordCount) {
             setContent({
                 content: text,
                 wordCount
@@ -26,26 +27,26 @@ export default function CharacterCount(props) {
                 wordCount
             });
         }
-    },[props.limit, content]);
+    },[maxWordCount, content]);
 
     const wordCountHintMessage = wordCount => {
         if (!wordCount) {
             return (
                 <div id="with-hint-info" className="govuk-hint govuk-character-count__message">
-                    You have {props.limit} words remaining
+                    You have {maxWordCount} words remaining
                 </div>
             );
         }
 
-        if (wordCount > props.limit) {
-            const count = wordCount - props.limit;
+        if (wordCount > maxWordCount) {
+            const count = wordCount - maxWordCount;
             return (
                 <div className="govuk-hint govuk-character-count__message">
                     You have {count === 1 ? count + ' word' : count + ' words' } too many
                 </div>
             );
         } else {
-            const count = props.limit - wordCount;
+            const count = maxWordCount - wordCount;
             return (
                 <div className="govuk-hint govuk-character-count__message">
                     You have {count === 1 ? count + ' word' : count + ' words' } remaining
@@ -57,7 +58,7 @@ export default function CharacterCount(props) {
     const formErrorClass = classNames({
         'govuk-form-group': true,
         'govuk-character-count': true,
-        'govuk-form-group--error': props.error
+        'govuk-form-group--error': error
     });
 
     return (

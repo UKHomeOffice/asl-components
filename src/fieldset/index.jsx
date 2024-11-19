@@ -71,7 +71,7 @@ const fields = {
     declaration: props => <ApplicationConfirm { ...props } />,
     inputDate: props => <DateInput { ...props } onChange={value => props.onChange({ target: { value } })} />,
     textarea: props => <TextArea { ...omit(props, ['meta']) } autoExpand={true} />,
-    textAreaWithWordCount: props => <CharacterCount { ...omit(props, ['meta'])} limit = {3} />,
+    textAreaWithWordCount: props => <CharacterCount { ...omit(props, ['meta'])} maxWordCount = {250} />,
     radioGroup: props => {
         if (!props.options) {
             throw new Error(`radioGroup '${props.name}' has undefined options`);
