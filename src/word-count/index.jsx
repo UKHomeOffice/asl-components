@@ -65,12 +65,11 @@ export default function WordCount(props) {
     });
 
     return (
-        <div className={formErrorClass}>
+        <div className={formErrorClass} id={`${name}-form-group`}>
             <TextArea
                 {...props}
                 value={content}
                 onChange={e => handleChange(e.target.value)}
-                aria-describedby={name}
             />
             {wordCountHintMessage(wordCount)}
         </div>
