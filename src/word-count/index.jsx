@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export default function WordCount(props) {
 
-    const { value, maxWordCount, error, values } = props;
+    const { value, maxWordCount, error, values, name } = props;
     const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
 
     const [{ content, wordCount }, setContent] = useState({
@@ -67,6 +67,7 @@ export default function WordCount(props) {
                 {...props}
                 value={content}
                 onChange={e => handleChange(e.target.value)}
+                aria-describedby={name}
             />
             {wordCountHintMessage(wordCount)}
         </div>
