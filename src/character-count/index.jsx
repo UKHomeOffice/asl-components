@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export default function CharacterCount(props) {
 
-    const { value, maxWordCount, error } = props;
+    const { value, maxWordCount, error, values } = props;
     const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
 
     const [{ content, wordCount }, setContent] = useState({
@@ -32,7 +32,7 @@ export default function CharacterCount(props) {
     const wordCountHintMessage = wordCount => {
         if (!wordCount) {
             return (
-                <div id="with-hint-info" className="govuk-hint govuk-character-count__message">
+                <div id={`${values.id}-wordcount-hint`} aria-live="polite" className="govuk-hint govuk-character-count__message">
                     You have {maxWordCount} words remaining
                 </div>
             );
@@ -41,14 +41,14 @@ export default function CharacterCount(props) {
         if (wordCount > maxWordCount) {
             const count = wordCount - maxWordCount;
             return (
-                <div className="govuk-hint govuk-character-count__message">
+                <div id={`${values.id}-wordcount-hint`} aria-live="polite" className="govuk-hint govuk-character-count__message">
                     You have {count === 1 ? count + ' word' : count + ' words' } too many
                 </div>
             );
         } else {
             const count = maxWordCount - wordCount;
             return (
-                <div className="govuk-hint govuk-character-count__message">
+                <div id={`${values.id}-wordcount-hint`} aria-live="polite" className="govuk-hint govuk-character-count__message">
                     You have {count === 1 ? count + ' word' : count + ' words' } remaining
                 </div>
             );
