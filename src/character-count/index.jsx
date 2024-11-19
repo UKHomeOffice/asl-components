@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export default function CharacterCount(props) {
 
-    const getWordCount = text => text.split(/\s+/).filter(Boolean).length;
+    const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
 
     const [{ content, wordCount }, setContent] = useState({
         content: props.value,
@@ -39,6 +39,7 @@ export default function CharacterCount(props) {
 
     const formErrorClass = classNames({
         'govuk-form-group': true,
+        'govuk-character-count': true,
         'govuk-form-group--error': props.error
     });
 
