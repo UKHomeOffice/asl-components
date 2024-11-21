@@ -6,29 +6,27 @@ const WordCountHintMessage = ({ content, id, maxWordCount = 0 }) => {
 
     const hintId = `${id}-wordcount-hint`;
 
+    let hintText = '';
+
     if (!wordCount && maxWordCount) {
-        return (
-            <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                You have {maxWordCount} words remaining
-            </div>
-        );
+        hintText = `You have ${maxWordCount} words remaining`;
     }
+
+    const wordCountText = count => count === 1 ? 'word' : 'words';
 
     if (wordCount > maxWordCount) {
         const count = wordCount - maxWordCount;
-        return (
-            <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                You have {count === 1 ? count + ' word' : count + ' words' } too many
-            </div>
-        );
+        hintText = `You have ${count} ${wordCountText(count)} too many`;
     } else {
         const count = maxWordCount - wordCount;
-        return (
-            <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                You have {count === 1 ? count + ' word' : count + ' words' } remaining
-            </div>
-        );
+        hintText = `You have ${count} ${wordCountText(count)} remaining`;
     }
+
+    return (
+        <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
+            {hintText}
+        </div>
+    );
 };
 
 export default WordCountHintMessage;
