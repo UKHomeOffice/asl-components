@@ -4,24 +4,35 @@ import WordCountHintMessage from './wordcount-hint-message';
 import { describe, test, expect } from '@jest/globals';
 
 describe('<WordCountHintMessage />', () => {
-
     const values = { id: 'applicantTrainingUseAtWork' };
 
-    test('displays how many words remaining', () => {
-        const wrapper = shallow(<WordCountHintMessage wordCount={8} maxWordCount={10} values={values} />);
-
-        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 2 words remaining');
-    });
-
-    test('displays maximum word count when textarea is empty', () => {
-        const wrapper = shallow(<WordCountHintMessage wordCount={0} maxWordCount={10} values={values}/>);
-
+    test('displays max words remaining when wordCount is not provided', () => {
+        const wrapper = shallow(<WordCountHintMessage maxWordCount={10} values={values} />);
         expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 10 words remaining');
     });
 
-    test('displays how many words above the maximum word limit are entered', () => {
-        const wrapper = shallow(<WordCountHintMessage wordCount={8} maxWordCount={1} values={values}/>);
+    test('displays remaining words when wordCount is less than maxWordCount', () => {
+        const wrapper = shallow(<WordCountHintMessage wordCount={8} maxWordCount={10} values={values} />);
+        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 2 words remaining');
+    });
 
-        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 7 words too many');
+    test('displays no remaining words when wordCount is equal to maxWordCount', () => {
+        const wrapper = shallow(<WordCountHintMessage wordCount={10} maxWordCount={10} values={values} />);
+        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 0 words remaining');
+    });
+
+    test('displays too many words when wordCount is greater than maxWordCount', () => {
+        const wrapper = shallow(<WordCountHintMessage wordCount={12} maxWordCount={10} values={values} />);
+        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 2 words too many');
+    });
+
+    test('displays singular word when there is only one word remaining', () => {
+        const wrapper = shallow(<WordCountHintMessage wordCount={9} maxWordCount={10} values={values} />);
+        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 1 word remaining');
+    });
+
+    test('displays singular word when there is only one word too many', () => {
+        const wrapper = shallow(<WordCountHintMessage wordCount={11} maxWordCount={10} values={values} />);
+        expect(wrapper.find('#applicantTrainingUseAtWork-wordcount-hint').text()).toContain('You have 1 word too many');
     });
 });
