@@ -35,7 +35,7 @@ export default function WordCount(props) {
                 value={content}
                 onChange={e => handleChange(e.target.value)}
             />
-            <WordCountHintMessage wordCount={wordCount} values={values} maxWordCount={maxWordCount} />
+            <WordCountHintMessage wordCount={wordCount} id={values.id} maxWordCount={maxWordCount} />
         </div>
     );
 }

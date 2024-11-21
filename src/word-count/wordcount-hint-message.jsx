@@ -1,10 +1,10 @@
 import React from 'react';
 
-const WordCountHintMessage = ({ wordCount, values, maxWordCount }) => {
+const WordCountHintMessage = ({ wordCount, id, maxWordCount = 0 }) => {
 
-    const hintId = `${values?.id}-wordcount-hint`;
+    const hintId = `${id}-wordcount-hint`;
 
-    if (!wordCount) {
+    if (!wordCount && maxWordCount) {
         return (
             <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
                 You have {maxWordCount} words remaining
