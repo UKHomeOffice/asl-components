@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { TextArea } from '@ukhomeoffice/react-components';
 import classNames from 'classnames';
+import WordCountHintMessage from './wordcount-hint-message';
 
 export default function WordCount(props) {
 
@@ -29,35 +30,6 @@ export default function WordCount(props) {
         }
     },[maxWordCount, content]);
 
-    const wordCountHintMessage = wordCount => {
-
-        const hintId = `${values?.id}-wordcount-hint`;
-
-        if (!wordCount) {
-            return (
-                <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                    You have {maxWordCount} words remaining
-                </div>
-            );
-        }
-
-        if (wordCount > maxWordCount) {
-            const count = wordCount - maxWordCount;
-            return (
-                <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                    You have {count === 1 ? count + ' word' : count + ' words' } too many
-                </div>
-            );
-        } else {
-            const count = maxWordCount - wordCount;
-            return (
-                <div id={hintId} aria-live="polite" className="govuk-hint govuk-character-count__message">
-                    You have {count === 1 ? count + ' word' : count + ' words' } remaining
-                </div>
-            );
-        }
-    };
-
     const formErrorClass = classNames({
         'govuk-form-group': true,
         'govuk-character-count': true,
@@ -71,7 +43,7 @@ export default function WordCount(props) {
                 value={content}
                 onChange={e => handleChange(e.target.value)}
             />
-            {wordCountHintMessage(wordCount)}
+            <WordCountHintMessage wordCount={wordCount} values={values} maxWordCount={maxWordCount} />
         </div>
     );
 }
