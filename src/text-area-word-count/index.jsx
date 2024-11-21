@@ -4,23 +4,11 @@ import classNames from 'classnames';
 import WordCountHintMessage from './wordcount-hint-message';
 import omit from 'lodash/omit';
 
-export default function WordCount(props) {
+export default function TextAreaWithWordCount(props) {
 
     const { value, maxWordCount, error, values, name } = props;
-    const getWordCount = text => text?.split(/\s+/).filter(Boolean).length;
 
-    const [{ content, wordCount }, setContent] = useState({
-        content: value,
-        wordCount: getWordCount(value) ?? 0,
-    });
-
-    const handleChange = text => {
-        const wordCount = getWordCount(text);
-        setContent({
-            content: text,
-            wordCount
-        });
-    };
+    const [content, setContent] = useState(value || '');
 
     const formErrorClass = classNames({
         'govuk-form-group': true,
@@ -33,9 +21,9 @@ export default function WordCount(props) {
             <TextArea
                 {...omit(props, 'maxWordCount')}
                 value={content}
-                onChange={e => handleChange(e.target.value)}
+                onChange={e => setContent(e.target.value)}
             />
-            <WordCountHintMessage wordCount={wordCount} id={values.id} maxWordCount={maxWordCount} />
+            <WordCountHintMessage content={content} id={values.id} maxWordCount={maxWordCount} />
         </div>
     );
 }

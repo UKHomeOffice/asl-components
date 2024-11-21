@@ -27,7 +27,7 @@ import {
     DurationField,
     SelectMany,
     Inset,
-    WordCount
+    TextAreaWithWordCount
 } from '../';
 
 function getLabel(opt, name, type = 'label') {
@@ -71,7 +71,7 @@ const fields = {
     declaration: props => <ApplicationConfirm { ...props } />,
     inputDate: props => <DateInput { ...props } onChange={value => props.onChange({ target: { value } })} />,
     textarea: props => <TextArea { ...omit(props, ['meta']) } autoExpand={true} />,
-    textAreaWithWordCount: props => <WordCount { ...omit(props, ['meta']) } />,
+    textAreaWithWordCount: props => <TextAreaWithWordCount { ...omit(props, ['meta']) } />,
     radioGroup: props => {
         if (!props.options) {
             throw new Error(`radioGroup '${props.name}' has undefined options`);

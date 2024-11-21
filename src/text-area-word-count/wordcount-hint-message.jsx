@@ -1,6 +1,8 @@
 import React from 'react';
 
-const WordCountHintMessage = ({ wordCount, id, maxWordCount = 0 }) => {
+const WordCountHintMessage = ({ content, id, maxWordCount = 0 }) => {
+
+    const wordCount = content?.split(/\s+/).filter(Boolean).length;
 
     const hintId = `${id}-wordcount-hint`;
 
