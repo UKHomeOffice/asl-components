@@ -2,15 +2,10 @@ import React from 'react';
 
 const WordCountHintMessage = ({ content, id, maxWordCount = 0 }) => {
 
-    const wordCount = content?.split(/\s+/).filter(Boolean).length;
-
+    const wordCount = content?.split(/\s+/).filter(Boolean).length ?? 0;
     const hintId = `${id}-wordcount-hint`;
 
     let hintText = '';
-
-    if (!wordCount && maxWordCount) {
-        hintText = `You have ${maxWordCount} words remaining`;
-    }
 
     const wordCountText = count => count === 1 ? 'word' : 'words';
 
