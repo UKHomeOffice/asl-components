@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { TextArea } from '@ukhomeoffice/react-components';
 import classNames from 'classnames';
 import WordCountHintMessage from './wordcount-hint-message';
@@ -13,22 +13,13 @@ export default function WordCount(props) {
         wordCount: getWordCount(value) ?? 0,
     });
 
-    const handleChange = useCallback(text => {
-
+    const handleChange = text => {
         const wordCount = getWordCount(text);
-
-        if (wordCount > maxWordCount) {
-            setContent({
-                content: text,
-                wordCount
-            });
-        } else {
-            setContent({
-                content: text,
-                wordCount
-            });
-        }
-    },[maxWordCount, content]);
+        setContent({
+            content: text,
+            wordCount
+        });
+    };
 
     const formErrorClass = classNames({
         'govuk-form-group': true,
