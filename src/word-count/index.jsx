@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextArea } from '@ukhomeoffice/react-components';
 import classNames from 'classnames';
 import WordCountHintMessage from './wordcount-hint-message';
+import omit from 'lodash/omit';
 
 export default function WordCount(props) {
 
@@ -30,7 +31,7 @@ export default function WordCount(props) {
     return (
         <div className={formErrorClass} id={`${name}-form-group`}>
             <TextArea
-                {...props}
+                {...omit(props, 'maxWordCount')}
                 value={content}
                 onChange={e => handleChange(e.target.value)}
             />
