@@ -33,7 +33,7 @@ describe('<WordCountHintMessage />', () => {
     });
 
     test('displays singular word when there is only one word too many', () => {
-        const wrapper = shallow(<WordCountHintMessage content='This is a sentence with 10 words - no' maxWordCount={10} id={id} />);
+        const wrapper = shallow(<WordCountHintMessage content='This is a sentence with 10 words - 3 more words' maxWordCount={10} id={id} />);
         expect(wrapper.find(wordCountHintId).text()).toContain('You have 1 word too many');
     });
 });
