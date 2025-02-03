@@ -10,7 +10,7 @@ function RenderLinkReference({ children }) {
     return <Fragment>[{ children }]</Fragment>;
 }
 function RenderUnorderedList({ children }) {
-    return <ul className='govuk-list govuk-list--bullet'>{children}</ul>;
+    return <ul className='govuk-list govuk-list--bullet'>{ children }</ul>;
 }
 
 const components = {
