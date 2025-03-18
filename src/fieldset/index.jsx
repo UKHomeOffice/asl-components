@@ -49,12 +49,12 @@ function SingleRadio(props) {
     return (
         <div className="govuk-form-group">
             <input type="hidden" name={props.name} value={value} />
-            { props.label && <h3>{ props.label }</h3> }
+            {props.label && <h3>{props.label}</h3>}
             {
                 settings.label || getLabel(value, props.fieldName)
             }
             {
-                hint && <span className="govuk-hint">{ hint }</span>
+                hint && <span className="govuk-hint">{hint}</span>
             }
             {
                 settings.reveal
@@ -64,37 +64,37 @@ function SingleRadio(props) {
 }
 
 const fields = {
-    inputText: props => <Input { ...props } />,
-    inputEmail: props => <Input type="email" { ...props } />,
-    inputFile: props => <Input type="file" { ...props } />,
-    inputPassword: props => <Input type="password" { ...props } />,
-    declaration: props => <ApplicationConfirm { ...props } />,
-    inputDate: props => <DateInput { ...props } onChange={value => props.onChange({ target: { value } })} />,
-    textarea: props => <TextArea { ...omit(props, ['meta']) } autoExpand={true} />,
-    textAreaWithWordCount: props => <TextAreaWithWordCount { ...omit(props, ['meta']) } />,
+    inputText: props => <Input {...props} />,
+    inputEmail: props => <Input type="email" {...props} />,
+    inputFile: props => <Input type="file" {...props} />,
+    inputPassword: props => <Input type="password" {...props} />,
+    declaration: props => <ApplicationConfirm {...props} />,
+    inputDate: props => <DateInput {...props} onChange={value => props.onChange({ target: { value } })} />,
+    textarea: props => <TextArea {...omit(props, ['meta'])} autoExpand={true} />,
+    textAreaWithWordCount: props => <TextAreaWithWordCount {...omit(props, ['meta'])} />,
     radioGroup: props => {
         if (!props.options) {
             throw new Error(`radioGroup '${props.name}' has undefined options`);
         }
         return props.options.length > 1
-            ? <RadioGroup initialHideReveals={true} { ...props } />
-            : <SingleRadio { ...props } />;
+            ? <RadioGroup initialHideReveals={true} {...props} />
+            : <SingleRadio {...props} />;
     },
-    checkboxGroup: props => <CheckboxGroup initialHideReveals={true} { ...props } />,
-    select: props => <Select { ...props } />,
-    selectMany: props => <SelectMany { ...props } />,
-    conditionalReveal: props => <ConditionalReveal { ...props } />,
-    detailsReveal: props => <DetailsReveal { ...props } />,
+    checkboxGroup: props => <CheckboxGroup initialHideReveals={true} {...props} />,
+    select: props => <Select {...props} />,
+    selectMany: props => <SelectMany {...props} />,
+    conditionalReveal: props => <ConditionalReveal {...props} />,
+    detailsReveal: props => <DetailsReveal {...props} />,
     speciesSelector: props => <SpeciesSelector fieldName={props.name} {...props} />,
     restrictionsField: props => <RestrictionsField {...props} />,
     inputDuration: props => <DurationField {...props} />,
     autoComplete: props => <AutoComplete {...props} />,
     multiInput: props => <MultiInput {...props} />,
-    warning: props => <Warning><Snippet {...props}>{ props.contentKey }</Snippet></Warning>,
+    warning: props => <Warning><Snippet {...props}>{props.contentKey}</Snippet></Warning>,
     text: props => (
         <div className={classnames('govuk-form-group', props.name)}>
-            <h3>{ props.label }</h3>
-            <Markdown>{ props.format ? props.format(props.value) : props.value }</Markdown>
+            <h3>{props.label}</h3>
+            <Markdown>{props.format ? props.format(props.value) : props.value}</Markdown>
         </div>
     ),
     fieldset: props => (
@@ -163,7 +163,7 @@ function Field({
                     };
                 }
                 if (opt.hint && typeof opt.hint === 'string') {
-                    opt.hint = <Markdown unwrapSingleLine={true}>{ opt.hint }</Markdown>;
+                    opt.hint = <Markdown unwrapSingleLine={true}>{opt.hint}</Markdown>;
                 }
                 return opt;
             }
@@ -198,7 +198,7 @@ function Field({
         hint = formatHint({ name, prefix, hint });
     }
 
-    function onFieldChange(e) {
+    const onFieldChange = (options = []) => (e) => {
         let v = e.target ? e.target.value : e;
         if (v === 'true') {
             v = true;
@@ -207,14 +207,25 @@ function Field({
             v = false;
         }
         if (Array.isArray(fieldValue)) {
-            if (fieldValue.includes(v)) {
+            const option = options.find(o => o.value === v);
+            const exclusiveOptions = options.filter(o => o.behaviour === 'exclusive').map(o => o.value);
+
+            console.log({ options, v, fieldValue, option, exclusiveOptions });
+
+            if (option?.behaviour === 'exclusive' && !fieldValue.includes(v)) {
+                // exclusive option selected, deselect everything else
+                v = [v];
+            } else if (fieldValue.includes(v)) {
                 v = without(fieldValue, v);
             } else {
-                v = [...fieldValue, v];
+                // Selecting non-exclusive option: remove exclusive option if already selected
+                v = [...(fieldValue.filter(fv => !exclusiveOptions.includes(fv))), v];
             }
+
+            console.log(v);
         }
         setFieldValue(v);
-    }
+    };
 
     const Component = fields[inputType];
 
@@ -223,7 +234,7 @@ function Field({
     }
 
     if (hint && typeof hint === 'string') {
-        hint = <Markdown unwrapSingleLine={true}>{ hint }</Markdown>;
+        hint = <Markdown unwrapSingleLine={true}>{hint}</Markdown>;
     }
 
     const snippetProps = props.formatters?.[name]?.renderContext ?? {};
@@ -231,9 +242,10 @@ function Field({
     return <Component
         label={isUndefined(label) ? <Snippet {...snippetProps}>{`fields.${name}.label`}</Snippet> : label}
         hint={isUndefined(hint) ? <Snippet optional {...snippetProps}>{`fields.${name}.hint`}</Snippet> : hint}
-        error={error && <Snippet fallback={`errors.default.${error}`} {...snippetProps}>{`errors.${name}.${error}`}</Snippet>}
+        error={error &&
+      <Snippet fallback={`errors.default.${error}`} {...snippetProps}>{`errors.${name}.${error}`}</Snippet>}
         value={fieldValue}
-        onChange={onFieldChange}
+        onChange={onFieldChange(options)}
         name={prefix ? `${prefix}-${name}` : name}
         options={options}
         {...props}
