@@ -199,28 +199,34 @@ function Field({
     }
 
     const onFieldChange = (options = []) => (e) => {
-        let v = e.target ? e.target.value : e;
-        if (v === 'true') {
-            v = true;
+        let newValue = e.target ? e.target.value : e;
+        if (newValue === 'true') {
+            newValue = true;
         }
-        if (v === 'false') {
-            v = false;
+        if (newValue === 'false') {
+            newValue = false;
         }
         if (Array.isArray(fieldValue)) {
-            const option = options.find(o => o.value === v);
-            const exclusiveOptions = options.filter(o => o.behaviour === 'exclusive').map(o => o.value);
+            const option = options.find(opt => opt.value === newValue);
+            const exclusiveOptions =
+              options
+                  .filter(opt => opt.behaviour === 'exclusive')
+                  .map(opt => opt.value);
 
-            if (option?.behaviour === 'exclusive' && !fieldValue.includes(v)) {
+            if (option?.behaviour === 'exclusive' && !fieldValue.includes(newValue)) {
                 // exclusive option selected, deselect everything else
-                v = [v];
-            } else if (fieldValue.includes(v)) {
-                v = without(fieldValue, v);
+                newValue = [newValue];
+            } else if (fieldValue.includes(newValue)) {
+                newValue = without(fieldValue, newValue);
             } else {
                 // Selecting non-exclusive option: remove exclusive option if already selected
-                v = [...(fieldValue.filter(fv => !exclusiveOptions.includes(fv))), v];
+                newValue = [
+                    ...(fieldValue.filter(prevValue => !exclusiveOptions.includes(prevValue))),
+                    newValue
+                ];
             }
         }
-        setFieldValue(v);
+        setFieldValue(newValue);
     };
 
     const Component = fields[inputType];
