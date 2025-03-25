@@ -31,7 +31,7 @@
     "@x-govuk/govuk-prototype-components": "^3.0.9",
     "accessible-autocomplete": "^2.0.3",
     "classnames": "^2.2.6",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "diff": "^4.0.1",
     "govuk-frontend": "^5.8.0",
     "lodash": "^4.17.21",
